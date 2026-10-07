@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="GAME ZONE — plateforme de mini-jeux, classement et boutique.">
+<title>GAME ZONE</title>
+<style>
+:root{--bg:#070814;--card:#101329;--card2:#171b39;--txt:#f7f8ff;--muted:#aeb4d0;--pink:#ff4fd8;--cyan:#42e8ff;--yellow:#ffd34e;--green:#4cff9a;--danger:#ff647c}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:radial-gradient(circle at 20% 0%,#202657 0,#070814 40%),var(--bg);color:var(--txt);min-height:100vh}
+header{position:sticky;top:0;z-index:10;background:#080a16e8;backdrop-filter:blur(12px);border-bottom:1px solid #ffffff12}
+nav{max-width:1150px;margin:auto;display:flex;align-items:center;gap:18px;padding:15px 18px}.logo{font-weight:1000;letter-spacing:2px;font-size:24px;color:var(--cyan);text-shadow:0 0 22px #42e8ff77}.logo span{color:var(--pink)}
+nav button{background:none;border:0;color:var(--muted);font-weight:800;cursor:pointer;padding:9px 10px;border-radius:10px}nav button:hover,nav button.active{color:#fff;background:#ffffff10}
+.coins{margin-left:auto;background:#ffffff0d;padding:9px 13px;border-radius:999px;font-weight:900;color:var(--yellow)}
+main{max-width:1150px;margin:auto;padding:30px 18px 70px}.page{display:none}.page.active{display:block}
+.hero{padding:55px 0 35px;display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}.hero h1{font-size:clamp(48px,9vw,94px);line-height:.9;margin:0 0 18px;letter-spacing:-5px}.gradient{background:linear-gradient(90deg,var(--cyan),var(--pink),var(--yellow));-webkit-background-clip:text;color:transparent}.hero p{color:var(--muted);font-size:18px;max-width:620px}.hero-card{background:linear-gradient(145deg,#191e43,#0c0f22);border:1px solid #ffffff18;border-radius:28px;padding:26px;box-shadow:0 20px 60px #0008}
+.btn{border:0;border-radius:13px;padding:12px 17px;font-weight:950;cursor:pointer;background:linear-gradient(90deg,var(--cyan),var(--pink));color:#07101a;box-shadow:0 8px 25px #42e8ff22}.btn.secondary{background:#ffffff10;color:#fff;box-shadow:none;border:1px solid #ffffff16}.btn.buy{background:linear-gradient(90deg,var(--yellow),#ff9b4e)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:linear-gradient(160deg,#141832,#0e1125);border:1px solid #ffffff12;border-radius:20px;padding:20px;transition:.2s;box-shadow:0 12px 35px #0003}.card:hover{transform:translateY(-4px);border-color:#42e8ff44}.icon{font-size:42px}.tag{display:inline-block;font-size:12px;font-weight:900;padding:5px 8px;border-radius:999px;background:#ffffff0b;color:var(--muted);margin:4px 3px 0 0}.price{font-size:25px;font-weight:1000;color:var(--yellow)}.muted{color:var(--muted)}.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.section-title{display:flex;justify-content:space-between;align-items:end;margin:30px 0 15px}.section-title h2{margin:0;font-size:28px}
+input{width:100%;padding:13px 14px;border-radius:12px;border:1px solid #ffffff18;background:#080a16;color:#fff;outline:none;margin:7px 0 12px}
+table{width:100%;border-collapse:collapse;background:#0e1125;border-radius:16px;overflow:hidden}th,td{text-align:left;padding:14px;border-bottom:1px solid #ffffff0c}th{color:var(--muted);font-size:13px}
+.notice{padding:14px 16px;border-radius:14px;background:#42e8ff0d;border:1px solid #42e8ff22;color:#dceeff;margin:14px 0}.warn{background:#ffd34e0d;border-color:#ffd34e33;color:#fff0b3}
+.modal{position:fixed;inset:0;background:#000b;display:none;place-items:center;padding:20px;z-index:30}.modal.open{display:grid}.modalbox{max-width:500px;width:100%;background:#11152e;border:1px solid #ffffff20;border-radius:22px;padding:24px}
+footer{text-align:center;color:#737b9d;padding:30px;border-top:1px solid #ffffff0d}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}nav{gap:4px;overflow:auto}nav button{white-space:nowrap}.coins{display:none}}
+@media(max-width:520px){.grid{grid-template-columns:1fr}.hero h1{letter-spacing:-3px}}
+</style>
+</head>
+<body>
+<header><nav>
+<div class="logo">GAME <span>ZONE</span></div>
+<button data-page="home" class="active">Accueil</button>
+<button data-page="games">Jeux</button>
+<button data-page="shop">Boutique</button>
+<button data-page="ranking">Classement</button>
+<button data-page="profile">Profil</button>
+<div class="coins">🪙 <span id="coins">0</span></div>
+</nav></header>
+
+<main>
+<section id="home" class="page active">
+<div class="hero">
+<div><div class="tag">ARCADE • COMPÉTITION • FUN</div><h1><span class="gradient">GAME<br>ZONE</span></h1>
+<p>Ta plateforme de mini-jeux. Joue, bats tes records, gagne de l’XP et grimpe dans le classement.</p>
+<button class="btn" data-page="games">JOUER MAINTENANT</button>
+<button class="btn secondary" data-page="shop">VOIR LA BOUTIQUE</button></div>
+<div class="hero-card"><div class="icon">🎮</div><h2>Ton aventure commence ici</h2><p class="muted">3 jeux disponibles dans cette version de lancement, avec progression locale et classement.</p><div class="row"><span class="muted">Niveau</span><strong id="heroLevel">1</strong></div><div class="row"><span class="muted">XP</span><strong id="heroXp">0</strong></div></div>
+</div>
+<div class="section-title"><h2>Jeux populaires</h2><button class="btn secondary" data-page="games">Tout voir</button></div><div id="homeGames" class="grid"></div>
+</section>
+
+<section id="games" class="page"><div class="section-title"><h2>🎮 Tous les jeux</h2></div><div id="gamesGrid" class="grid"></div></section>
+
+<section id="shop" class="page"><div class="section-title"><h2>🛒 Boutique</h2></div>
+<div class="notice warn">Chaque jeu premium est affiché à <strong>1,99 €</strong>. Cette version est prête pour une intégration PayPal, mais les paiements réels ne sont pas activés automatiquement par cette page.</div>
+<div id="shopGrid" class="grid"></div></section>
+
+<section id="ranking" class="page"><div class="section-title"><h2>🏆 Classement</h2></div><div class="card"><table><thead><tr><th>#</th><th>Joueur</th><th>XP</th><th>Meilleur score</th></tr></thead><tbody id="rankingBody"></tbody></table></div></section>
+
+<section id="profile" class="page"><div class="section-title"><h2>👤 Profil</h2></div>
+<div class="grid"><div class="card"><h3>Ton profil</h3><label>Pseudo</label><input id="nameInput" maxlength="18" placeholder="Ton pseudo"><button class="btn" id="saveName">Enregistrer</button><p class="muted">Niveau <strong id="level">1</strong> • XP <strong id="xp">0</strong></p></div>
+<div class="card"><h3>Progression</h3><p>XP total : <strong id="xp2">0</strong></p><p>Pièces : <strong id="coins2">0</strong> 🪙</p><p>Jeux achetés : <strong id="ownedCount">0</strong></p></div></div></section>
+</main>
+
+<footer>GAME ZONE — plateforme de jeux • Les paiements réels nécessitent une configuration PayPal.</footer>
+
+<div id="gameModal" class="modal"><div class="modalbox"><div class="row"><h2 id="gameTitle">Jeu</h2><button class="btn secondary" id="closeGame">Fermer</button></div><div id="gameArea"></div></div></div>
+
+<script>
+const games=[
+{id:"neon",name:"Neon Rush",icon:"⚡",desc:"Clique sur les cibles le plus vite possible pendant 30 secondes.",premium:false},
+{id:"memory",name:"Memory Grid",icon:"🧠",desc:"Mémorise la séquence de cases et bats ton meilleur score.",premium:false},
+{id:"tap",name:"Tap Frenzy",icon:"🔥",desc:"Fais le maximum de taps en 10 secondes.",premium:false},
+{id:"space",name:"Space Attack",icon:"🚀",desc:"Évite les météores et marque un maximum de points.",premium:true},
+{id:"drift",name:"Cyber Drift",icon:"🏎️",desc:"Garde le contrôle et réalise le meilleur chrono.",premium:true},
+{id:"ninja",name:"Ninja Arena",icon:"🥷",desc:"Réflexes, esquives et combos dans une arène futuriste.",premium:true}
+];
+let state=JSON.parse(localStorage.getItem("gameZoneState")||"null")||{name:"Joueur",xp:0,coins:0,owned:["neon","memory","tap"],scores:{}};
+function save(){localStorage.setItem("gameZoneState",JSON.stringify(state));render();}
+function level(){return Math.floor(state.xp/500)+1}
+function addXP(n){state.xp+=n;state.coins+=Math.max(1,Math.floor(n/25));save()}
+function render(){
+document.getElementById("coins").textContent=state.coins; document.getElementById("coins2").textContent=state.coins;
+document.getElementById("xp").textContent=state.xp; document.getElementById("xp2").textContent=state.xp;
+document.getElementById("level").textContent=level();document.getElementById("heroLevel").textContent=level();document.getElementById("heroXp").textContent=state.xp;
+document.getElementById("nameInput").value=state.name;document.getElementById("ownedCount").textContent=state.owned.length;
+const card=g=>`<div class="card"><div class="icon">${g.icon}</div><h3>${g.name}</h3><p class="muted">${g.desc}</p><span class="tag">${g.premium?"PREMIUM":"GRATUIT"}</span><div style="margin-top:15px">${state.owned.includes(g.id)?`<button class="btn" onclick="play('${g.id}')">JOUER</button>`:g.premium?`<span class="price">1,99 €</span> <button class="btn buy" onclick="buy('${g.id}')">Acheter</button>`:`<button class="btn" onclick="play('${g.id}')">JOUER</button>`}</div></div>`;
+document.getElementById("gamesGrid").innerHTML=games.map(card).join("");document.getElementById("homeGames").innerHTML=games.slice(0,3).map(card).join("");document.getElementById("shopGrid").innerHTML=games.filter(g=>g.premium).map(card).join("");
+let rows=Object.entries(state.scores).sort((a,b)=>b[1]-a[1]).slice(0,10); rows.unshift([state.name+" (toi)",Math.max(0,...Object.values(state.scores),0)]);
+document.getElementById("rankingBody").innerHTML=rows.map((r,i)=>`<tr><td>${i+1}</td><td>${r[0]}</td><td>${i===0?state.xp:Math.max(0,1000-i*70)}</td><td>${r[1]}</td></tr>`).join("");
+}
+function buy(id){alert("Boutique : le jeu coûte 1,99 €. Pour recevoir de vrais paiements sur ton PayPal, il faut connecter un compte PayPal et un vrai système de paiement. Cette démo ne débite personne.");}
+function finish(id,score,xp){state.scores[id]=Math.max(state.scores[id]||0,score);addXP(xp);alert("Score : "+score+" • +"+xp+" XP");}
+function play(id){if(!state.owned.includes(id)){alert("Achète ce jeu dans la boutique pour y accéder.");return}document.getElementById("gameTitle").textContent=games.find(g=>g.id===id).name;document.getElementById("gameModal").classList.add("open");let a=document.getElementById("gameArea");
+if(id==="neon"){a.innerHTML=`<p>30 secondes. Clique la cible !</p><div id="target" style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#42e8ff,#ff4fd8);position:relative;cursor:pointer"></div><h3>Score: <span id="sc">0</span> • <span id="timer">30</span>s</h3>`;let s=0,t=30,el=document.getElementById("target");let move=()=>{el.style.marginLeft=Math.random()*80+"%";el.style.marginTop=Math.random()*120+"px"};el.onclick=()=>{s++;document.getElementById("sc").textContent=s;move()};let iv=setInterval(()=>{t--;document.getElementById("timer").textContent=t;if(t<=0){clearInterval(iv);el.onclick=null;finish(id,s,s*5)}},1000)}
+else if(id==="tap"){a.innerHTML=`<button id="tapBtn" class="btn" style="font-size:25px;padding:25px 40px">TAP !</button><h3>Score: <span id="sc">0</span> • <span id="timer">10</span>s</h3>`;let s=0,t=10;document.getElementById("tapBtn").onclick=()=>{s++;document.getElementById("sc").textContent=s};let iv=setInterval(()=>{t--;document.getElementById("timer").textContent=t;if(t<=0){clearInterval(iv);finish(id,s,s*4)}},1000)}
+else {a.innerHTML=`<p>Mémorise la séquence.</p><div id="seq" style="font-size:60px;text-align:center;margin:25px">🔵</div><button class="btn" id="mem">Je m'en souviens</button><h3>Manche: <span id="round">1</span></h3>`;let r=1;document.getElementById("mem").onclick=()=>{r++;document.getElementById("round").textContent=r;if(r>=8){finish(id,r*100,r*30);document.getElementById("mem").disabled=true}}}}
+document.getElementById("closeGame").onclick=()=>document.getElementById("gameModal").classList.remove("open");
+document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>{document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.getElementById(b.dataset.page).classList.add("active");document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("active",x.dataset.page===b.dataset.page));window.scrollTo(0,0)});
+document.getElementById("saveName").onclick=()=>{state.name=document.getElementById("nameInput").value.trim()||"Joueur";save();alert("Profil enregistré !")};
+render();
+</script>
+</body>
+</html>
